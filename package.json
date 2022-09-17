@@ -96,5 +96,8 @@
       "no-eq-null": 2,
       "no-unused-expressions": 0
     }
+  },
+  "dependencies": {
+    "plotly.js-dist": "^2.14.0"
   }
 }

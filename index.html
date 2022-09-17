@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,
+		maximum-scale=1.0, user-scalable=no">
 
 		<title>reveal.js</title>
 
@@ -15,16 +16,55 @@
 	</head>
 	<body>
 		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2
-						<aside class="notes">
-						<p>Some notes</p>
-						</aside>
-						<p>Some slide text</p>
-						<aside class="notes">
-						<p>and some more notes</p>
-					</aside>
+			<div class="slides" style="border:1px solid red">
+				<section>
+					<h2>EX503J Offshore Process Engineering</h2>
+					<p>
+						Dr Marcus Campbell Bannerman
+						<a
+						href="mailto:m.campbellbannerman@abdn.ac.uk">m.campbellbannerman@abdn.ac.uk</a>
+					</p>
+				</section>
+				<section>
+					<section>
+						<h2>Introduction to the course</h2>
+					</section>
+					<section>
+						<ul>
+							<li><b>Process engineering</b> is the design of
+							chemical processes, onshore examples include
+							bread/chemical/pharmeceutical production.</li>
+							<li class="fragment"><b>Offshore</b> process
+							engineering includes oil & gas extraction,
+							CO<sub>2</sub>/H<sub>2</sub> purification and
+							injection for storage, mineral and geothermal
+							extraction.
+							</li>
+							<li class="fragment">These are some of the most
+							constrained/tough environments to work in, so we see
+							some of the best of Process Engineering.</li>
+						</ul>
+					</section>
+					<section>
+						<ul>
+							<li>
+								This course revisits many basic Process
+								Engineering topics (thermodynamics, flow,
+								separation, safety, efficiency), but in an
+								offshore context.
+							</li>
+							<li>
+								This is more applied, and covers advanced
+								aspects, but most calculations are short-cut
+								approaches.
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section><h2>Phase behaviour</h2></section>
+					<section>
+					</section>
 				</section>
 			</div>
 		</div>
@@ -33,6 +73,7 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="node_modules/plotly.js-dist/plotly.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
