@@ -1,89 +1,51 @@
 <!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,
-		maximum-scale=1.0, user-scalable=no">
-
-		<title>reveal.js</title>
-
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
-
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides" style="border:1px solid red">
-				<section>
-					<h2>EX503J Offshore Process Engineering</h2>
-					<p>
-						Dr Marcus Campbell Bannerman
-						<a
-						href="mailto:m.campbellbannerman@abdn.ac.uk">m.campbellbannerman@abdn.ac.uk</a>
-					</p>
-				</section>
-				<section>
-					<section>
-						<h2>Introduction to the course</h2>
-					</section>
-					<section>
-						<ul>
-							<li><b>Process engineering</b> is the design of
-							chemical processes, onshore examples include
-							bread/chemical/pharmeceutical production.</li>
-							<li class="fragment"><b>Offshore</b> process
-							engineering includes oil & gas extraction,
-							CO<sub>2</sub>/H<sub>2</sub> purification and
-							injection for storage, mineral and geothermal
-							extraction.
-							</li>
-							<li class="fragment">These are some of the most
-							constrained/tough environments to work in, so we see
-							some of the best of Process Engineering.</li>
-						</ul>
-					</section>
-					<section>
-						<ul>
-							<li>
-								This course revisits many basic Process
-								Engineering topics (thermodynamics, flow,
-								separation, safety, efficiency), but in an
-								offshore context.
-							</li>
-							<li>
-								This is more applied, and covers advanced
-								aspects, but most calculations are short-cut
-								approaches.
-							</li>
-						</ul>
-					</section>
-				</section>
-				<section>
-					<section><h2>Phase behaviour</h2></section>
-					<section>
-					</section>
-				</section>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<title>Offshore Process Engineering</title>
+	<meta name="description" content="Heat Mass and Momentum Transfer notes">
+	<meta name="author" content="Marcus Bannerman <m.bannerman@gmail.com">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<script src="header.js"></script>
+    </head>
+    <body>
+	<div class="reveal">
+	    <div class="slides">
+	      <section>
+		<section data-menu-title="Use the Lectures menu above to pick a particular topic and the Table of Contents will appear here.">
+			<div class="backbox">
+			    <h1>Offshore Process Engineering</h1>
 			</div>
-		</div>
-
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script src="node_modules/plotly.js-dist/plotly.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+			<p>
+			    Marcus N. Bannerman<br/>
+			    <a href="mailto:m.campbellbannerman@abdn.ac.uk">m.campbellbannerman@abdn.ac.uk</a><br/>
+			<div style="display:block-inline;">
+			    <object type="image/svg+xml" data="img/UoALarge.svg" width="25%">
+				Your browser does not support SVG
+			    </object>
+			</div>
+			</p>
+			<br/>
+			<h4>Navigation Instructions</h4>
+			<p>Open the <a href="#"
+			  onclick="RevealMenu.toggle(); return
+			  false;">menu <i class="fa fa-bars"></i></a>,
+			  then use the Lectures <i class="fa
+			  fa-graduation-cap"></i> select submenu to
+			  get each lecture's notes/slides.</p>
+			<p>
+			  Press <em>space</em> to move forward step by step
+			  in the slides, <em>Esc</em> to see all the slides,
+			  <em>Left/Right</em> to navigate by section,
+			  and <em>Up/Down</em> to navigate within a
+			  section.
+			</p>
+		    </section>
+		</section>
+	    </div>
+	    <script src="footer.js"></script>
+	</div>
+    </body>
 </html>
