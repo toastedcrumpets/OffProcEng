@@ -6,3 +6,17 @@
     padding:1em;
     background-color: rgba(0,0,0,0.7);
  }
+
+ .slide-menu-item.menu-section {
+    font-size:0.9em;
+    border-bottom: 4px double;
+    border-top: 4px double;    
+    text-align: center !important;
+    padding: 0.25em;
+    cursor:default;
+}
+
+.active-menu-panel li.selected.menu-section {
+    background-color:inherit;
+    color:inherit;
+}
