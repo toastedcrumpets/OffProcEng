@@ -13,14 +13,14 @@ loadScripts = function (script_urls, script_callback) {
 };
 
 loadScripts([
-    "../reveal.js/dist/reveal.js",
-    "../reveal.js-plugins/audio-slideshow/plugin.js",
-    "../reveal.js-plugins/audio-slideshow/recorder.js",
-    "../reveal.js-plugins/audio-slideshow/RecordRTC.js",
-    "../reveal.js/plugin/highlight/highlight.js",
-    "../reveal.js/plugin/search/search.js",
-    "../reveal.js/plugin/notes/notes.js",
-    "../reveal.js/plugin/math/math.js",
+    "dist/reveal.js",
+//    "../reveal.js-plugins/audio-slideshow/plugin.js",
+//    "../reveal.js-plugins/audio-slideshow/recorder.js",
+//    "../reveal.js-plugins/audio-slideshow/RecordRTC.js",
+    "plugin/highlight/highlight.js",
+    "plugin/search/search.js",
+    "plugin/notes/notes.js",
+    "plugin/math/math.js",
     "../reveal.js-plugins/menu/menu.js",
 ],
     function() {
@@ -44,8 +44,8 @@ loadScripts([
 		RevealNotes,
 		RevealMath,
 		RevealMenu,
-		RevealAudioSlideshow,
-		RevealAudioRecorder
+//		RevealAudioSlideshow,
+//		RevealAudioRecorder
 	    ],
 	    menu: {
 		titleSelector:'WILLNOTFINDTITLES',
