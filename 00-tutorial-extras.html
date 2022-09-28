@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Offshore Process Engineering</title>
+    <meta name="description" content="Offshore Process Engineering notes">
+    <meta name="author" content="Marcus Bannerman <m.bannerman@gmail.com">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <script src="header.js"></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+    	<section>
+	  
+          <section>
+            <h1>Extra tutorial information</h1>
+          </section>
+	</section>
+	<section data-menu-title="1 Phase Behaviour and Physical Properties">
+	  <section >
+	    <h3>1 Phase Behaviour and Physical Properties</h3>
+	    <p> These questions can be solved using a spreadsheet, and an example is given here:
+	    <ul>
+	      <li><a href="tutorial_code/1PhaseBehaviour.xls">Spreadsheet solution</a></li>
+	    </ul>
+	    <p>
+	      But you can also use something more modern like python, as shown in the next slides
+	    </p>
+	  </section>
+
+	  <section>
+	    <h3>Q1 Python solution</h3>
+	    <pre class="r-stretch"><code class="python">
+from scipy.optimize import fsolve
+
+Tc = 304.2 # critical temperature
+Pc = 73.83 # critical pressure
+R = 83.145 # ideal gas constant cm^3 bar mol^-1 K^-1
+w = 0.224 # acentric factor
+
+T = 400 # K
+P = 50 # bara
+
+Tr = T / Tc # reduced temperature
+
+## required parameters
+
+def a():
+    return 0.45724 * (R**2 * Tc**2 / Pc)
+
+def b():
+    return 0.07780 * (R * Tc / Pc)
+
+def alpha():
+    return (1 + (0.37464 + 1.54226 * w - 0.26992 * w**2) * (1 - Tr**0.5))**2
+
+def peng_robinson(V): # returns pressure
+    return (R * T) / (V - b()) - (a() * alpha()) / (V**2 + 2 * b() * V - b()**2)
+
+## solve for the volume
+res = fsolve(lambda V : peng_robinson(V) - P, 400)
+print("T={}, P={} -> V={}".format(T, P, res[0]))
+
+
+## now change the temperature and pressure
+T = 293 # K
+P = 1 # bara
+
+## recalculate the reduced temperature
+Tr = T / Tc
+
+## re-solve
+res = fsolve(lambda V : peng_robinson(V) - P, 400)
+print("T={}, P={} -> V={}".format(T, P, res[0]))
+	    </code></pre>
+	  </section>
+	  
+	  <section>
+	    <h3>Q2 Python solution</h3>
+	    <pre class="r-stretch"><code class="python">
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.optimize import fsolve
+
+Tc = 305.6 # critical temperature
+Pc = 48.3 # critical pressure
+R = 83.145 # ideal gas constant cm^3 bar mol^-1 K^-1
+w = 0.1064 # acentric factor
+
+T = 293 # K
+
+Tr = T / Tc # reduced temperature
+
+## required parameters
+
+def alpha():
+    return (1 + (0.48 + 1.574 * w - 0.172 * w**2) * (1 - Tr**0.5)) ** 2
+
+def A(p):
+    return 0.42748 * alpha() * p / (Tr**2 * Pc)
+
+def B(p):
+    return 0.08664 * p / (Tr * Pc)
+
+## solves the polynomial compressibility form of the EOS. This
+## function will return 0 (the residual will be 0) when using a
+## compressibility value which is a root of this equation for a given
+## pressure
+def poly_comp_residual(z, p):
+    return z**3 - z**2 + (A(p) - B(p) - B(p)**2) * z - A(p)*B(p)
+
+################################
+## visualising the residual of the polynomial compressibility form of
+## the SRK EOS as a function of compressibility using a perssure value
+## of 38 bara
+p = 38
+z_values = np.linspace(-2, 2, 1000)
+e_values = []
+for z in z_values:
+    e = poly_comp_residual(z, p)
+    e_values.append(e)
+plt.plot(z_values, e_values)
+plt.xlabel("Compressibility")
+plt.ylabel("Polynomial compressibility residual")
+plt.show()
+################################
+
+## natural log of fugacity coefficient (eq in tutorial solutions)
+def ln_fug(z, p): 
+    return z - 1 - np.log(z - B(p)) - A(p) / B(p) * np.log(1 + B(p) / z)
+
+## this function calculates the difference between the fugacities of
+## the liquid and vapour phases for a given pressure. This will be 0
+## at equilibrium
+def fugacity_diff(p):
+
+    # calculate the vapour compressiblity root (large positive
+    # starting guess for the compressibility)
+    res = fsolve(lambda z : poly_comp_residual(z, p), 10)
+    vapour_z = res[0]
+
+    # calculate the liquid compressiblity root (large negative
+    # starting guess for the compressibility)
+    res = fsolve(lambda z : poly_comp_residual(z, p), -10)
+    liquid_z = res[0]
+
+    # return difference between fugacity values
+    return ln_fug(liquid_z, p) - ln_fug(vapour_z, p)
+
+## solve for the pressure
+res = fsolve(fugacity_diff, 30)
+print("P={}".format(res[0]))
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h3>Q3 Python solution</h3>
+	    <pre class="r-stretch"><code class="python">
+import numpy as np
+from scipy.optimize import fsolve
+import matplotlib.pyplot as plt
+
+## quick class to make storing the individual component properties and
+## accessing K values simpler
+class Component:
+
+    def __init__(self, x, Pc, Tc, w):
+        self.x = x # mol fraction
+        self.Pc = Pc # critical pressure
+        self.Tc = Tc # critical temperature
+        self.w = w # acentric factor
+
+    # Wilson expression
+    def K(self, P, T):
+        return self.Pc / P * np.exp(5.37 * (1 + self.w) * (1 - self.Tc / T))
+
+components = []
+components.append(Component(0.65, 46.39, 190.55, 0.0115)) # methane
+components.append(Component(0.15, 48.83, 305.28, 0.0986)) # ethane
+components.append(Component(0.1,  42.55, 369.75, 0.1524)) # propane
+components.append(Component(0.05, 36.46, 407.9,  0.1848)) # i-butane
+components.append(Component(0.05, 37.95, 425,    0.201)) # n-butane
+
+## sums yi / Ki for every component i and returns the difference
+## between the sum and 1.0. This function will return 0 at mixture dew
+## point
+def dew_error(component_list, p, T, output=False):
+    dew_sum = 0
+    for c in component_list:
+        dew_sum += c.x / c.K(p, T)
+    return dew_sum - 1
+
+## sums xi * Ki for every component i and returns the difference
+## between the sum and 1.0. This function will return 0 at mixture
+## bubble point
+def bubble_error(component_list, p, T, output=False):
+    bubble_sum = 0
+    for c in component_list:
+        bubble_sum += c.x * c.K(p, T)
+    return bubble_sum - 1
+
+## calculate the dew and bubble point curves at 100 values between 1
+## and 100 bara
+pressures = np.linspace(1, 100, 100)
+
+## set up lists to hold the dew and bubble point temperatures
+bubble_temperatures = []
+dew_temperatures = []
+
+## iterate over pressure values
+for p in pressures:
+
+    # solve for the dew point temperature at pressure p using an
+    # initial temperature guess of 200 K
+    dew_point_result = fsolve(lambda T : dew_error(components, p, T), 200)
+    dew_temperatures.append(dew_point_result[0])
+
+    # solve for the bubble point temperature at pressure p using an
+    # initial temperature guess of 200 K
+    bubble_point_result = fsolve(lambda T : bubble_error(components, p, T), 200)
+    bubble_temperatures.append(bubble_point_result[0])
+
+############################################################
+## creating and formatting the dew / bubble point curve plot
+from matplotlib import rc
+rc('font',**{'family':'serif','serif':['Times New Roman']})
+rc('text', usetex=True)
+plt.rcParams['text.latex.preamble'] = "\\usepackage{amsmath}"
+
+factor = 0.7
+width = 5 * factor
+height = 3 * factor
+plt.gcf().set_size_inches(width, height)
+
+# (converting temperatures to C)
+plt.plot([T - 293.15 for T in bubble_temperatures], pressures, label="Bubble point curve")
+plt.plot([T - 293.15 for T in dew_temperatures], pressures, label="Dew point curve", c="r")
+plt.xlabel(r"Temperature~${}^\circ$C")
+plt.ylabel(r"Pressure~bara")
+plt.legend()
+plt.grid()
+plt.ylim(0)
+plt.savefig("q3ans.pdf", bbox_inches="tight", pad_inches=0, transparent=True)
+plt.show()
+############################################################
+	    </code></pre>
+	  </section>
+	</section>
+      </div>
+    </div>
+    <script src="footer.js"></script>
+  </body>
+</html>
