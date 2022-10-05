@@ -5,4 +5,6 @@ is heavily based on notes written by Tom Baxter, which is also based on a wide
 range of sources common in offshore process engineering.
 
 
-## Running notes
+## Viewing the notes
+
+Just head over to https://marcusbannerman.co.uk/OffProcEng
