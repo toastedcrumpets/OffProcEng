@@ -58,3 +58,7 @@ function TogglePrintable() {
     else
         window.location = UpdateQueryString("print-pdf", "");
 }
+
+function ToggleOverview() {
+    Reveal.toggleOverview(true);
+}
