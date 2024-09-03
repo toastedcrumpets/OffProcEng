@@ -1,10 +1,8 @@
 
 document.getElementsByTagName("head")[0].insertAdjacentHTML(
   "beforeend",
-  "<link rel=\"stylesheet\" href=\"dist/reveal.css\" />"
-  +"<link rel=\"stylesheet\" href=\"dist/theme/blood.css\" />"  
-  +"<link rel=\"stylesheet\" href=\"plugin/highlight/zenburn.css\" />"
-  +"<link rel=\"stylesheet\" href=\"MCBreveal.css\" />"
+  "<link rel=\"stylesheet\" href=\"../reveal.js/dist/reveal.css\" />"
+  +"<link rel=\"stylesheet\" href=\"../reveal.js/dist/theme/white.css\" />"  
   +"<link rel=\"stylesheet\" href=\"../resources/Font-Awesome/css/font-awesome.min.css\" />"
   +"<link rel=\"shortcut icon\" type=\"image/png\" href=\"favicon.png\">"
 );
